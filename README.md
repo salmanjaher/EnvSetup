@@ -20,7 +20,7 @@
 This tool was created to help you setup your environment for development. It will install the following languages:
 
 - Python
-- JavaScript
+- JavaScript (Node)
 - Java
 - C++
 
