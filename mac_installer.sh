@@ -1,8 +1,9 @@
 #!/bin/bash
-
+## Made by Salman Jaher
 prompt_to_continue() {
   clear
-  echo "Welcome to EnvSetup for MacOS. \n"
+  echo "Welcome to EnvSetup for MacOS. "
+  echo
   echo "This script will install all the required packages for your Mac."
   echo "This installer has been tested on both Intel and Apple Silicone, and is not liable for any damages. Proceed carefully."
   echo
@@ -32,7 +33,8 @@ detect_mac_type() {
 
 manual_switch_mac_type() {
  clear
- echo "We detected that you are using an $mac_type_name. \n "
+ echo "We detected that you are using an $mac_type_name. "
+ echo
  echo "If this is correct press enter, otherwise press N to switch."
  read -rsn1 key
  if [[ $key == "n" || $key == "N" ]]; then
