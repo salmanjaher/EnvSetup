@@ -1,0 +1,233 @@
+## Made by Salman Jaher
+
+function CheckAdminRights {
+    Clear-Host
+    Write-Host "Checking Admin Rights..."
+    Start-Sleep -Seconds 1
+
+    # Check if the user is an administrator
+    if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+        Write-Host "You are not an administrator. Please run this script as an administrator."
+        exit 1
+    }
+
+    Clear-Host
+    Write-Host "Admin Rights Checked!"
+    Start-Sleep -Seconds 1
+}
+
+function PromptToContinue {
+    Clear-Host
+    Write-Host "Welcome to EnvSetup for Windows."
+    Write-Host
+    Write-Host "This script will install all the required packages for your Windows machine."
+    Write-Host "This installer has been tested on Windows and is not liable for any damages. Proceed carefully."
+    Write-Host
+    Write-Host "Press enter to continue or press ESC to abort."
+
+    $key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyUp").Character
+
+    # Check if ESC key was pressed
+    if ($key -eq [char]27) {
+        Write-Host "Installation aborted."
+        exit 0
+    }
+}
+
+function CheckDependencies {
+    Clear-Host
+    Write-Host "Checking Dependencies..."
+    Start-Sleep -Seconds 1
+
+    # Check if chocolatey is installed
+    if (!(Test-Path (Join-Path $env:ALLUSERSPROFILE "chocolatey\bin\choco.exe"))) {
+        Write-Host "Chocolatey is not installed. Installing Chocolatey..."
+        if ((Get-ExecutionPolicy) -eq "Restricted") {
+            Write-Host "Execution Policy is Restricted. Changing Execution Policy..."
+            Set-ExecutionPolicy Bypass -Scope Process
+        }
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+        exit 1
+    }
+
+    # if chocolatey is installed, check if git is installed
+    if (!(Test-Path (Join-Path $env:ProgramFiles "Git\bin\git.exe"))) {
+        Write-Host "Git is not installed. Installing Git..."
+        choco install git -y
+    }
+
+    Clear-Host
+    Write-Host "Dependencies Checked!"
+    Start-Sleep -Seconds 1
+}
+
+function InstallVSCode {
+    Clear-Host
+    # Check if Visual Studio Code is already installed
+    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code\code.exe")) {
+        Write-Host "Visual Studio Code is already installed. Skipping installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Clear-Host
+    # Prompt the user if they want to install Visual Studio Code
+    $installVSCode = Read-Host "Would you like to install Visual Studio Code? (y/n)"
+    if ($installVSCode -eq "n" -or $installVSCode -eq "N") {
+        Write-Host "Skipping Visual Studio Code installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Write-Host "Installing Visual Studio Code..."
+    Start-Sleep -Seconds 1
+
+    # if Visual Studio Code is not installed, install it
+    choco install vscode -y
+
+    Write-Host "Visual Studio Code Installed!"
+    Start-Sleep -Seconds 1
+}
+
+function installPython {
+    Clear-Host
+    # Check if Python is already installed
+    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Python\Python39\python.exe")) {
+        Write-Host "Python is already installed. Skipping installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Clear-Host
+    # Prompt the user if they want to install Python
+    $installPython = Read-Host "Would you like to install Python? (y/n)"
+    if ($installPython -eq "n" -or $installPython -eq "N") {
+        Write-Host "Skipping Python installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Write-Host "Installing Python..."
+    Start-Sleep -Seconds 1
+
+    # if Python is not installed, install it
+    choco install python -y
+
+    Write-Host "Python Installed!"
+    Start-Sleep -Seconds 1
+}
+
+function InstallJS {
+    Clear-Host
+    # Check if Node.js is already installed
+    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Node.js\node.exe")) {
+        Write-Host "Node.js is already installed. Skipping installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Clear-Host
+    # Prompt the user if they want to install Node.js
+    $installJS = Read-Host "Would you like to install Node.js? (y/n)"
+    if ($installJS -eq "n" -or $installJS -eq "N") {
+        Write-Host "Skipping Node.js installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Write-Host "Installing Node.js..."
+    Start-Sleep -Seconds 1
+
+    # if Node.js is not installed, install it
+    choco install nodejs -y
+
+    Write-Host "Node.js Installed!"
+    Start-Sleep -Seconds 1
+}
+
+function InstallJava {
+    Clear-Host
+    # Check if Java is already installed
+    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Java\jdk-16.0.1\bin\java.exe")) {
+        Write-Host "Java is already installed. Skipping installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Clear-Host
+    # Prompt the user if they want to install Java
+    $installJava = Read-Host "Would you like to install Java? (y/n)"
+    if ($installJava -eq "n" -or $installJava -eq "N") {
+        Write-Host "Skipping Java installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Write-Host "Installing Java..."
+    Start-Sleep -Seconds 1
+
+    # if Java is not installed, install it
+    choco install openjdk -y
+
+    Write-Host "Java Installed!"
+    Start-Sleep -Seconds 1
+}
+
+function InstallMinGW {
+    Clear-Host
+    # Check if MinGW is already installed
+    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\mingw-w64\mingw64\bin\gcc.exe")) {
+        Write-Host "MinGW is already installed. Skipping installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Clear-Host
+    # Prompt the user if they want to install MinGW
+    $installMinGW = Read-Host "Would you like to install MinGW? (y/n)"
+    if ($installMinGW -eq "n" -or $installMinGW -eq "N") {
+        Write-Host "Skipping MinGW installation..."
+        Start-Sleep -Seconds 1
+        return
+    }
+
+    Write-Host "Installing MinGW..."
+    Start-Sleep -Seconds 1
+
+    # if MinGW is not installed, install it
+    choco install mingw -y
+
+    Write-Host "MinGW Installed!"
+    Start-Sleep -Seconds 1
+}
+
+# Add more functions for installing other packages or dependencies
+
+function ThankYou {
+    Clear-Host
+    Write-Host "Thank you for using EnvSetup for Windows!"
+    Write-Host "HackUTD thanks you for your support!"
+    Start-Sleep -Seconds 1
+}
+
+# Main installation process
+
+CheckAdminRights
+
+PromptToContinue
+
+CheckDependencies
+
+InstallVSCode
+
+InstallPython
+
+InstallJS
+
+InstallJava
+
+InstallMinGW
+
+ThankYou
+
+Write-Host "Installation completed successfully."
