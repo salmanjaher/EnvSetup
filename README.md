@@ -45,8 +45,7 @@ If you choose to develop in Python, this guide will also teach you how to setup 
 #### Mac
 
 ```bash
-git clone "https://github.com/salmanjaher/EnvSetup/blob/main/mac_installer.sh"
-
+bash <(curl -fsSL https://raw.githubusercontent.com/salmanjaher/EnvSetup/main/mac_installer.sh)
 ```
 
 #### Windows
