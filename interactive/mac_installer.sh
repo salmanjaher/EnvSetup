@@ -1,5 +1,21 @@
 #!/bin/bash
 ## Made by Salman Jaher
+
+check_xcode_command_line_tools() {
+  clear
+  echo "Checking Xcode Command Line Tools..."
+  sleep 1
+  # Check if Xcode Command Line Tools are installed
+  if ! command -v xcode-select &> /dev/null; then
+    echo "Xcode Command Line Tools are not installed. Installing Xcode Command Line Tools..."
+    xcode-select --install
+  fi
+  
+  clear
+  echo "Xcode Command Line Tools Checked!"
+  sleep 1
+}
+
 prompt_to_continue() {
   clear
   echo "Welcome to EnvSetup for MacOS. "
@@ -244,6 +260,7 @@ install_python() {
   sleep 1
  }
 
+check_xcode_command_line_tools
 
 prompt_to_continue
 
