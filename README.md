@@ -26,7 +26,7 @@ This tool was created to help you setup your environment for development. It wil
 
 The following tools:
 
-- Homebrew (Mac)
+- Homebrew (Mac) / Chocolatey (Windows)
 - Git
 - VSCode
 
@@ -45,12 +45,16 @@ If you choose to develop in Python, this guide will also teach you how to setup 
 #### Mac
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/salmanjaher/EnvSetup/main/mac_installer.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/salmanjaher/EnvSetup/main/interactive/mac_installer.sh)
 ```
 
 #### Windows
 
-hello windows user
+Please run this in an elevated PowerShell prompt (Run as Administrator)
+
+```ps1
+iex (iwr -Uri 'https://raw.githubusercontent.com/salmanjaher/EnvSetup/main/interactive/windows_installer.ps1' -UseBasicParsing).Content
+```
 
 #### Linux
 
