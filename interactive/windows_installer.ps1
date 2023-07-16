@@ -8,6 +8,7 @@ function CheckAdminRights {
     # Check if the user is an administrator
     if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
         Write-Host "You are not an administrator. Please run this script as an administrator."
+        Start-Sleep -Seconds 5
         exit 1
     }
 
@@ -23,25 +24,32 @@ function PromptToContinue {
     Write-Host "This script will install all the required packages for your Windows machine."
     Write-Host "This installer has been tested on Windows and is not liable for any damages. Proceed carefully."
     Write-Host
-    Write-Host "Press enter to continue or press ESC to abort."
+    Write-Host "Press (Y) to continue or press (N) to abort."
 
-    $key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyUp").Character
-
-    # Check if ESC key was pressed
-    if ($key -eq [char]27) {
-        Write-Host "Installation aborted."
-        exit 0
+    $continue = Read-Host
+    if ($continue -eq "n" -or $continue -eq "N") {
+        Write-Host "Aborting installation..."
+        Start-Sleep -Seconds 1
+        exit 1
     }
 }
 
 function CheckDependencies {
     Clear-Host
     Write-Host "Checking Dependencies..."
-    Start-Sleep -Seconds 1
+    Start-Sleep -Seconds 2
 
     # Check if chocolatey is installed
     if (!(Test-Path (Join-Path $env:ALLUSERSPROFILE "chocolatey\bin\choco.exe"))) {
-        Write-Host "Chocolatey is not installed. Installing Chocolatey..."
+        Write-Host "Chocolatey is not installed."
+        # Ask to install chocolatey
+        Write-Host "Would you like to install Chocolatey? (y/n)"
+        $installChocolatey = Read-Host
+        if ($installChocolatey -eq "n" -or $installChocolatey -eq "N") {
+            Write-Host "You need chocolatey to install the dependencies. Aborting installation..."
+            Start-Sleep -Seconds 1
+            exit 1
+        }
         if ((Get-ExecutionPolicy) -eq "Restricted") {
             Write-Host "Execution Policy is Restricted. Changing Execution Policy..."
             Set-ExecutionPolicy Bypass -Scope Process
@@ -52,7 +60,15 @@ function CheckDependencies {
 
     # if chocolatey is installed, check if git is installed
     if (!(Test-Path (Join-Path $env:ProgramFiles "Git\bin\git.exe"))) {
-        Write-Host "Git is not installed. Installing Git..."
+        Write-Host "Git is not installed."
+        # Ask to install git
+        Write-Host "Would you like to install Git? (y/n)"
+        $installGit = Read-Host
+        if ($installGit -eq "n" -or $installGit -eq "N") {
+            Write-Host "You need Git to install the dependencies. Aborting installation..."
+            Start-Sleep -Seconds 1
+            exit 1
+        }
         choco install git -y
     }
 

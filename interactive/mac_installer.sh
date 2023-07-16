@@ -10,7 +10,7 @@ check_xcode_command_line_tools() {
     echo "Xcode Command Line Tools are not installed. Installing Xcode Command Line Tools..."
     xcode-select --install
   fi
-  
+
   clear
   echo "Xcode Command Line Tools Checked!"
   sleep 1
