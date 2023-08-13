@@ -33,7 +33,6 @@ function PromptToContinue {
         exit 1
     }
 }
-
 function CheckDependencies {
     Clear-Host
     Write-Host "Checking Dependencies..."
@@ -55,7 +54,6 @@ function CheckDependencies {
             Set-ExecutionPolicy Bypass -Scope Process
         }
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-        exit 1
     }
 
     # if chocolatey is installed, check if git is installed
