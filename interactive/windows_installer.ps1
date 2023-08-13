@@ -191,7 +191,7 @@ function InstallJava {
 function InstallMinGW {
     Clear-Host
     # Check if MinGW is already installed
-        if (Test-Path -Path ('C:\ProgramData\chocolatey\bin\gcc.exe') -or Test-Path -Path ('C:\ProgramData\chocolatey\bin\g++.exe')) {
+        if (Test-Path -Path ('C:\ProgramData\chocolatey\bin\gcc.exe') -or Test-Path -Path ('C:\ProgramData\chocolatey\bin\g++.exe') -or Test-Path -Path ('C:\MinGW\bin\gcc.exe') -or Test-Path -Path ('C:\MinGW\bin\g++.exe')) {
         Write-Host "MinGW is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
