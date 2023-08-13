@@ -191,7 +191,7 @@ function InstallJava {
 function InstallMinGW {
     Clear-Host
     # Check if MinGW is already installed
-    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\mingw-w64\mingw64\bin\gcc.exe")) {
+    if (Test-Path (Join-Path $env:ProgramData "chocolately/bin/gcc.exe")) {
         Write-Host "MinGW is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
