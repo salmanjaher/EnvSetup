@@ -56,6 +56,8 @@ function CheckDependencies {
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     }
 
+    Clear-Host
+
     # if chocolatey is installed, check if git is installed
     if (!(Test-Path (Join-Path $env:ProgramFiles "Git\bin\git.exe"))) {
         Write-Host "Git is not installed."
@@ -78,7 +80,7 @@ function CheckDependencies {
 function InstallVSCode {
     Clear-Host
     # Check if Visual Studio Code is already installed
-    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code\code.exe")) {
+    if (Test-Path (Join-Path $env:ProgramFiles "Microsoft VS Code\Code.exe")) {
         Write-Host "Visual Studio Code is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
@@ -106,12 +108,11 @@ function InstallVSCode {
 function installPython {
     Clear-Host
     # Check if Python is already installed
-    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Python\Python39\python.exe")) {
+    if (Test-Path (Join-Path $env:ProgramFiles "Python311\python.exe")) {
         Write-Host "Python is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
     }
-
     Clear-Host
     # Prompt the user if they want to install Python
     $installPython = Read-Host "Would you like to install Python? (y/n)"
@@ -134,7 +135,7 @@ function installPython {
 function InstallJS {
     Clear-Host
     # Check if Node.js is already installed
-    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Node.js\node.exe")) {
+    if (Test-Path (Join-Path $env:ProgramFiles "nodejs\node.exe")) {
         Write-Host "Node.js is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
@@ -162,7 +163,7 @@ function InstallJS {
 function InstallJava {
     Clear-Host
     # Check if Java is already installed
-    if (Test-Path (Join-Path $env:LOCALAPPDATA "Programs\Java\jdk-16.0.1\bin\java.exe")) {
+    if (Test-Path (Join-Path $env:ProgramFiles "OpenJDK\jdk*\bin\java.exe")) {
         Write-Host "Java is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
@@ -198,7 +199,7 @@ function InstallMinGW {
 
     Clear-Host
     # Prompt the user if they want to install MinGW
-    $installMinGW = Read-Host "Would you like to install MinGW? (y/n)"
+    $installMinGW = Read-Host "Would you like to install MinGW (C++)? (y/n)"
     if ($installMinGW -eq "n" -or $installMinGW -eq "N") {
         Write-Host "Skipping MinGW installation..."
         Start-Sleep -Seconds 1
