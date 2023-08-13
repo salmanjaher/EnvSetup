@@ -108,7 +108,7 @@ function InstallVSCode {
 function installPython {
     Clear-Host
     # Check if Python is already installed in C:\Python311\python.exe
-    if (Test-Path ("C:\Python311\python.exe")) {
+    if (Test-Path -Path "C:\Python*\python.exe") {
         Write-Host "Python is already installed. Skipping installation..."
         Start-Sleep -Seconds 1
         return
