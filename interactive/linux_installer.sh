@@ -4,6 +4,7 @@
 update() {
   sudo apt update
 }
+
 warning() {
   clear
   echo "This script will only work on apt-based systems such as ubuntu and debian." 
@@ -204,17 +205,19 @@ install_python() {
   sleep 1
  }
 
-update
+
 
 warning
 
+detect_linux_type
+
 prompt_to_continue
 
-check_dependencies
+update
 
 check_sudo_snap
 
-detect_linux_type
+check_dependencies
 
 install_vscode
 
