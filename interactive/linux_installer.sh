@@ -1,12 +1,48 @@
 #!/bin/bash
 ## Made by Salman Jaher
 
+warning() {
+  clear
+  echo "This script will only work on apt-based systems such as ubuntu and debian." 
+  echo "This script is not liable for any damages. Proceed carefully."
+  echo "Press enter to continue or press ESC to abort."
+  read -rsn1 key
+  if [[ $key == $'\e' ]]; then
+    echo "Installation aborted."
+    exit 0
+  fi
+}
+
+detect_linux_type() {
+  # Check if the user is using an apt-based system
+  if [[ $(command -v apt) == "" ]]; then
+    echo "This script only works on apt-based systems such as Ubuntu and Debian."
+    echo "Installation aborted."
+    sleep 5
+    exit 0
+  fi
+}
+
+check_sudo_snap() {
+  # Check if sudo and snap are installed
+  if ! command -v sudo &> /dev/null; then
+    echo "sudo is not installed. Installing sudo..."
+    sleep 1
+    apt install sudo
+  fi
+  if ! command -v snap &> /dev/null; then
+    echo "snap is not installed. Installing snap..."
+    sleep 1
+    sudo apt install snapd
+  fi
+}
+
 prompt_to_continue() {
   clear
   echo "Welcome to EnvSetup for Linux. "
   echo
   echo "This script will install all the required packages for Linux."
-  echo "This installer has been tested on __, and is not liable for any damages. Proceed carefully."
+  echo "This installer has been tested on apt based systems, and is not liable for any damages. Proceed carefully."
   echo
   echo "Press enter to continue or press ESC to abort."
   
@@ -165,10 +201,15 @@ install_python() {
   sleep 1
  }
 
+warning
 
 prompt_to_continue
 
 check_dependencies
+
+check_sudo_snap
+
+detect_linux_type
 
 install_vscode
 
