@@ -99,7 +99,7 @@ install_vscode() {
 install_python() {
  clear
  # check if python is installed
- if command -v python &> /dev/null; then
+ if command -v python3 &> /dev/null; then
    echo "Python is already installed. Skipping installation..."
    sleep 1
    return
