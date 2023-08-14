@@ -34,8 +34,6 @@ The Interactive mode will ask you which languages you want to install. It will a
 
 The Pro mode is for advanced users, who would like more freedom in what they want to install.
 
-If you choose to develop in Python, this guide will also teach you how to setup a virtual environment to keep your projects separate from your system.
-
 ---
 
 ## Easy mode
