@@ -1,6 +1,9 @@
 #!/bin/bash
 ## Made by Salman Jaher
 
+update() {
+  sudo apt update
+}
 warning() {
   clear
   echo "This script will only work on apt-based systems such as ubuntu and debian." 
@@ -200,6 +203,8 @@ install_python() {
   echo "HackUTD thanks you for your support!"
   sleep 1
  }
+
+update
 
 warning
 
