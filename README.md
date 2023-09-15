@@ -1,4 +1,4 @@
-# Welcome to EnvSetup by HackUTD
+# Welcome to EnvSetup by HackUTD!
 
 ## Table of Contents
 
